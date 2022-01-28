@@ -1,4 +1,4 @@
-FROM node:16 as build
+FROM node:16
 
 RUN apt-get update -y && \
     apt-get install -y git
@@ -9,12 +9,6 @@ RUN git clone https://github.com/yabain/y-legal-frontend-recherche.git .
 
 RUN npm install
 
-RUN npm run build
+EXPOSE 4200
 
-
-
-FROM nginx:latest
-
-COPY --from=build /app/dist/frontend-recherche /usr/share/nginx/html
-
-EXPOSE 80
+CMD ["npm" ,"run","start"]
